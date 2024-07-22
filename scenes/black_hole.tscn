@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://crt4gab6kynwi"]
+
+[ext_resource type="Texture2D" uid="uid://ba3fq3jpuy8m0" path="res://assets/kenney_simple-space/PNG/Retina/meteor_large.png" id="1_ncd3d"]
+[ext_resource type="Script" path="res://scenes/black_hole.gd" id="1_wsly6"]
+[ext_resource type="Texture2D" uid="uid://dh21erlbuv64c" path="res://assets/kenney_simple-space/PNG/Default/star_small.png" id="2_87eml"]
+
+[sub_resource type="Curve" id="Curve_dky5y"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_2exi1"]
+curve_x = SubResource("Curve_dky5y")
+
+[sub_resource type="Curve" id="Curve_vn7u3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.265464, 0.65283), 0.0, 0.0, 0, 0, Vector2(0.919291, 0.622641), 0.0, 0.0, 0, 0, Vector2(1, 0), -7.71468, 0.0, 1, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_1qt7g"]
+curve = SubResource("Curve_vn7u3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yw7mj"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(1, 1, 1)
+emission_ring_height = 300.0
+emission_ring_radius = 300.0
+emission_ring_inner_radius = 1.0
+angular_velocity_min = 50.0
+angular_velocity_max = 100.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_2exi1")
+orbit_velocity_min = 0.05
+orbit_velocity_max = 0.05
+radial_velocity_min = -74.42
+radial_velocity_max = -0.35
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_1qt7g")
+color = Color(1, 1, 1, 0.635294)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wuppr"]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2xfot"]
+radius = 250.0
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_yw7mj")
+texture = ExtResource("2_87eml")
+lifetime = 10.0
+trail_lifetime = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.40625, 0.40625)
+texture = ExtResource("1_ncd3d")
+script = ExtResource("1_wsly6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wuppr")
+
+[node name="Black Hole" type="Area2D" parent="."]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 200.0
+linear_damp = 48.433
+angular_damp = 14.793
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Black Hole"]
+shape = SubResource("CircleShape2D_2xfot")
