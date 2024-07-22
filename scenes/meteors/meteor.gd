@@ -38,6 +38,8 @@ func _on_body_entered(body):
 	
 	if active_meteor and active_meteor.trail: # A trail is active
 		if active_meteor.type == type and active_meteor.count != count: # Is a twin meteor!
+			# TODO: Check only for the type and if match check if it's already in an Array,
+			# but it will be refactor anyway this shitty code lol
 			GameManager.connections_completed += 1
 			if GameManager.are_all_connections_completed():
 				GameManager.add_meteor_to_list(self)

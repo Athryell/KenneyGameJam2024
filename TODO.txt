@@ -1,12 +1,14 @@
 BUGS
-- [ ] When attracted by a Black Hole and teleport
+- [ ] GAMEPLAY - When attracted by a Black Hole and teleport
 		to other side of the screen the gravity keeps pulling,
 		mybe need to reset in when teleported?
-- [ ] When There are more than 3 ore more twins it's possible
+- [ ] GAMEPLAY - When There are more than 3 ore more twins it's possible
 		to connect the first to the second and back to the first
 		to complete the route. Should disable the once olready connected 
 		or keep a list of the once already touched (maybe with this solution
 		is easier to reactivate them?)
+- [ ] PERFORMANCES - Big stutter on first load of each particle, it happens onli on
+		compatibility which is required for web build
 
 GAMEPLAY
 
