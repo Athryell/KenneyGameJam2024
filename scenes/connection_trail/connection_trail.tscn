@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfqbtyv5vymd2"]
+[gd_scene load_steps=4 format=3 uid="uid://dfqbtyv5vymd2"]
 
 [ext_resource type="Script" path="res://scenes/connection_trail/connection_trail.gd" id="1_auj64"]
-[ext_resource type="Texture2D" uid="uid://bnh4uyxccmmls" path="res://assets/kenney_simple-space/PNG/Default/meteor_small.png" id="2_kvck5"]
+[ext_resource type="PackedScene" uid="uid://88ehfikr7er" path="res://scenes/connection_trail/completed_trail_particles.tscn" id="2_r2o43"]
 
 [sub_resource type="Curve" id="Curve_1whk4"]
 min_value = 0.25
@@ -10,22 +10,6 @@ _data = [Vector2(0, 0.25), 0.0, 0.0, 0, 0, Vector2(0.14, 0.75), 0.0, 0.0, 0, 0, 
 point_count = 9
 metadata/_snap_enabled = true
 metadata/_snap_count = 50
-
-[sub_resource type="Curve" id="Curve_082q8"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_l7wyt"]
-curve = SubResource("Curve_082q8")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a5wvg"]
-particle_flag_disable_z = true
-radial_velocity_min = 31.45
-radial_velocity_max = 74.93
-gravity = Vector3(0, 0, 0)
-scale_min = 0.2
-scale_max = 0.2
-scale_curve = SubResource("CurveTexture_l7wyt")
 
 [node name="ConnectionTrail" type="Line2D"]
 show_behind_parent = true
@@ -45,13 +29,7 @@ autostart = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-self_modulate = Color(0.874144, 0.841498, 0, 1)
-emitting = false
-amount = 200
-process_material = SubResource("ParticleProcessMaterial_a5wvg")
-texture = ExtResource("2_kvck5")
-trail_lifetime = 1.0
+[node name="GPUParticles2D" parent="." instance=ExtResource("2_r2o43")]
 
 [connection signal="timeout" from="AddPointTimer" to="." method="_on_add_point_timer_timeout"]
 [connection signal="timeout" from="ChangeSizeTimer" to="." method="_on_change_size_timer_timeout"]

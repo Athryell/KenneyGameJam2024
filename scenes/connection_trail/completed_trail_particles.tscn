@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://88ehfikr7er"]
+
+[ext_resource type="Texture2D" uid="uid://bnh4uyxccmmls" path="res://assets/kenney_simple-space/PNG/Default/meteor_small.png" id="1_tl0an"]
+
+[sub_resource type="Curve" id="Curve_082q8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_l7wyt"]
+curve = SubResource("Curve_082q8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a5wvg"]
+particle_flag_disable_z = true
+radial_velocity_min = 31.45
+radial_velocity_max = 74.93
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_l7wyt")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+self_modulate = Color(0.874144, 0.841498, 0, 1)
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_a5wvg")
+texture = ExtResource("1_tl0an")
+trail_lifetime = 1.0
