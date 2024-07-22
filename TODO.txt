@@ -1,0 +1,36 @@
+BUGS
+- [ ] When attracted by a Black Hole and teleport
+		to other side of the screen the gravity keeps pulling,
+		mybe need to reset in when teleported?
+- [ ] When There are more than 3 ore more twins it's possible
+		to connect the first to the second and back to the first
+		to complete the route. Should disable the once olready connected 
+		or keep a list of the once already touched (maybe with this solution
+		is easier to reactivate them?)
+
+GAMEPLAY
+
+- [ ]  Damage on collision: trails, black holes, debris
+- [ ]  Random debris → Dmg
+- [ ]  Defend mothership with lines from debris
+- [ ]  Add different different ships based on hitpoints? Maybe more HP is bigger?
+MENU
+
+- [ ]  Starting screen -> Just control the ship to reach
+		a "START GAME" button, controls are on the background
+
+VFX
+
+- [x]  Black hooles suck
+- [x]  Thrust ship
+- [x]  PArticle when hitting meteor → visula clue when more twins in family
+- [x]  Effect of glow when the line collider is active
+- [ ]  Border scren blurry OR warp effect to notify the potential danger
+- [ ]  Hit flash, screen shake -> Diegetic damage visual:
+			A small ship has 3 hit, a bigger has 5 
+
+MUSIC & SFX
+
+- [ ]  Soundtrack
+- [ ]  Sound effect when line is complete
+- [ ]  Sound effect when hit,
