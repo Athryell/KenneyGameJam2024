@@ -23,13 +23,8 @@ script = ExtResource("1_auj64")
 wait_time = 0.1
 autostart = true
 
-[node name="ChangeSizeTimer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="GPUParticles2D" parent="." instance=ExtResource("2_r2o43")]
 
 [connection signal="timeout" from="AddPointTimer" to="." method="_on_add_point_timer_timeout"]
-[connection signal="timeout" from="ChangeSizeTimer" to="." method="_on_change_size_timer_timeout"]

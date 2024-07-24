@@ -1,11 +1,16 @@
 extends Node
 
-var total_connections_completed: int
-var connections_completed: int = 0
+signal level_cleared
 
+var total_connections_completed: int
+var connections_completed_in_family: int = 0
+
+var _total_connection_needed: int
 var _active_meteor: Meteor
 var _meteor_list: Array[Meteor]
 
+func _ready():
+	LevelManager.level_data_loaded.connect(_on_level_data_loaded)
 
 func stop_drawing():
 	if _active_meteor and _active_meteor.trail:
@@ -15,7 +20,7 @@ func stop_drawing():
 
 
 func are_all_connections_completed() -> bool:
-	if connections_completed == _active_meteor.total_twins - 1:
+	if connections_completed_in_family == _active_meteor.total_twins - 1:
 		return true
 	return false
 
@@ -34,12 +39,21 @@ func complete_connection(last_meteor):
 		m.is_connection_completed = true
 	
 	_reset_data()
+	
+	if  total_connections_completed == _total_connection_needed:
+		level_cleared.emit()
+
+
+func _on_level_data_loaded(game_data):
+	_total_connection_needed = game_data["families"]
+	total_connections_completed = 0
+	_reset_data()
 
 
 func _reset_data():
 	_active_meteor = null
 	_meteor_list.clear()
-	connections_completed = 0
+	connections_completed_in_family = 0
 
 
 func set_meteor_info(meteor):

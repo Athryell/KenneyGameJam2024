@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqkfwbqyhhejx"]
+[gd_scene load_steps=11 format=3 uid="uid://bqkfwbqyhhejx"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_55jxp"]
 [ext_resource type="Texture2D" uid="uid://dmqviu8k5umr1" path="res://assets/kenney_simple-space/PNG/Retina/ship_H.png" id="2_2nwxi"]
@@ -6,27 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://ddetsjvik0nbj" path="res://assets/kenney_particle-pack/PNG (Transparent)/muzzle_04.png" id="3_52eii"]
 [ext_resource type="Script" path="res://scenes/player/player_trail.gd" id="3_jdr2f"]
 [ext_resource type="Texture2D" uid="uid://bygbfwy5io8e1" path="res://assets/kenney_particle-pack/PNG (Transparent)/muzzle_02.png" id="3_jwgdo"]
-
-[sub_resource type="Curve" id="Curve_s81fd"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_582tn"]
-curve = SubResource("Curve_s81fd")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w71wq"]
-lifetime_randomness = 0.5
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(0.1, 3.17, 1)
-angle_max = 360.0
-spread = 0.0
-initial_velocity_min = 30.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.0
-scale_max = 0.01
-alpha_curve = SubResource("CurveTexture_582tn")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8daai"]
 animations = [{
@@ -46,33 +25,6 @@ animations = [{
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.592453), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_eixyx"]
-curve = SubResource("Curve_pdpak")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7utlo"]
-lifetime_randomness = 0.5
-particle_flag_disable_z = true
-spread = 1.0
-initial_velocity_min = 30.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.0
-scale_max = 0.08
-scale_curve = SubResource("CurveTexture_eixyx")
-alpha_curve = SubResource("CurveTexture_582tn")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_be3vl"]
-lifetime_randomness = 0.5
-particle_flag_disable_z = true
-spread = 1.0
-initial_velocity_min = 30.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.0
-scale_max = 0.05
-scale_curve = SubResource("CurveTexture_eixyx")
-alpha_curve = SubResource("CurveTexture_582tn")
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2mahg"]
 height = 38.0
 
@@ -87,13 +39,24 @@ script = ExtResource("1_55jxp")
 
 [node name="VFX" type="Node2D" parent="."]
 
-[node name="GPUParticles_Thrust" type="GPUParticles2D" parent="VFX"]
+[node name="GPUParticles_Thrust" type="CPUParticles2D" parent="VFX"]
 self_modulate = Color(0.866179, 0.383594, 0.425694, 1)
 position = Vector2(-18, 0)
 rotation = 3.14159
 amount = 400
-process_material = SubResource("ParticleProcessMaterial_w71wq")
+lifetime_randomness = 0.5
+fixed_fps = 30
+draw_order = 1
 texture = ExtResource("2_2tipb")
+emission_shape = 3
+emission_rect_extents = Vector2(0.1, 3.17)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+angle_max = 360.0
+scale_amount_min = 0.0
+scale_amount_max = 0.01
 metadata/_edit_group_ = true
 
 [node name="Sprite_Thrust" type="AnimatedSprite2D" parent="VFX/GPUParticles_Thrust"]
@@ -105,13 +68,22 @@ scale = Vector2(0.0524863, 0.0524863)
 sprite_frames = SubResource("SpriteFrames_8daai")
 frame_progress = 0.868346
 
-[node name="GPUParticles_Break_Left" type="GPUParticles2D" parent="VFX"]
+[node name="GPUParticles_Break_Left" type="CPUParticles2D" parent="VFX"]
 position = Vector2(17, -5)
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_7utlo")
-texture = ExtResource("2_2tipb")
 lifetime = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_2tipb")
+spread = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.0
+scale_amount_max = 0.08
+scale_amount_curve = SubResource("Curve_pdpak")
 metadata/_edit_group_ = true
 
 [node name="Sprite_BreakLeft" type="Sprite2D" parent="VFX/GPUParticles_Break_Left"]
@@ -122,13 +94,22 @@ rotation = 1.5708
 scale = Vector2(0.0176663, 0.0258769)
 texture = ExtResource("3_52eii")
 
-[node name="GPUParticles_Break_Right" type="GPUParticles2D" parent="VFX"]
+[node name="GPUParticles_Break_Right" type="CPUParticles2D" parent="VFX"]
 position = Vector2(17, 5)
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_7utlo")
-texture = ExtResource("2_2tipb")
 lifetime = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_2tipb")
+spread = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.0
+scale_amount_max = 0.08
+scale_amount_curve = SubResource("Curve_pdpak")
 metadata/_edit_group_ = true
 
 [node name="Sprite_BreakRight" type="Sprite2D" parent="VFX/GPUParticles_Break_Right"]
@@ -139,14 +120,23 @@ rotation = 1.5708
 scale = Vector2(0.0176663, 0.0258769)
 texture = ExtResource("3_52eii")
 
-[node name="GPUParticles_SpinLeft_Top" type="GPUParticles2D" parent="VFX"]
+[node name="GPUParticles_SpinLeft_Top" type="CPUParticles2D" parent="VFX"]
 position = Vector2(17, 5)
 rotation = 0.872665
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_be3vl")
-texture = ExtResource("2_2tipb")
 lifetime = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_2tipb")
+spread = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.0
+scale_amount_max = 0.05
+scale_amount_curve = SubResource("Curve_pdpak")
 metadata/_edit_group_ = true
 
 [node name="Sprite_SpinLeft_Top" type="Sprite2D" parent="VFX/GPUParticles_SpinLeft_Top"]
@@ -157,14 +147,23 @@ rotation = 1.5708
 scale = Vector2(0.0176663, 0.0258769)
 texture = ExtResource("3_52eii")
 
-[node name="GPUParticles_SpinRight_Top" type="GPUParticles2D" parent="VFX"]
+[node name="GPUParticles_SpinRight_Top" type="CPUParticles2D" parent="VFX"]
 position = Vector2(17, -5)
 rotation = 5.23599
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_be3vl")
-texture = ExtResource("2_2tipb")
 lifetime = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_2tipb")
+spread = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.0
+scale_amount_max = 0.05
+scale_amount_curve = SubResource("Curve_pdpak")
 metadata/_edit_group_ = true
 
 [node name="Sprite_SpinRight_Top" type="Sprite2D" parent="VFX/GPUParticles_SpinRight_Top"]
@@ -175,15 +174,24 @@ rotation = 1.5708
 scale = Vector2(0.0176663, 0.0258769)
 texture = ExtResource("3_52eii")
 
-[node name="GPUParticles_SpinLeft_Bottom" type="GPUParticles2D" parent="VFX"]
+[node name="GPUParticles_SpinLeft_Bottom" type="CPUParticles2D" parent="VFX"]
 visible = false
 position = Vector2(-13, -6)
 rotation = -2.44346
 emitting = false
 amount = 50
-process_material = SubResource("ParticleProcessMaterial_be3vl")
-texture = ExtResource("2_2tipb")
 lifetime = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_2tipb")
+spread = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.0
+scale_amount_max = 0.05
+scale_amount_curve = SubResource("Curve_pdpak")
 metadata/_edit_group_ = true
 
 [node name="Sprite_SpinLeft_Bottom" type="Sprite2D" parent="VFX/GPUParticles_SpinLeft_Bottom"]
@@ -194,15 +202,24 @@ rotation = 1.5708
 scale = Vector2(0.0176663, 0.0258769)
 texture = ExtResource("3_52eii")
 
-[node name="GPUParticles_SpinRight_Bottom" type="GPUParticles2D" parent="VFX"]
+[node name="GPUParticles_SpinRight_Bottom" type="CPUParticles2D" parent="VFX"]
 visible = false
 position = Vector2(-13, 6)
 rotation = 2.44346
 emitting = false
 amount = 50
-process_material = SubResource("ParticleProcessMaterial_be3vl")
-texture = ExtResource("2_2tipb")
 lifetime = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_2tipb")
+spread = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.0
+scale_amount_max = 0.05
+scale_amount_curve = SubResource("Curve_pdpak")
 metadata/_edit_group_ = true
 
 [node name="Sprite_SpinRight_Bottom" type="Sprite2D" parent="VFX/GPUParticles_SpinRight_Bottom"]

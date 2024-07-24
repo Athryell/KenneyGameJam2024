@@ -7,8 +7,10 @@ BUGS
 		to complete the route. Should disable the once olready connected 
 		or keep a list of the once already touched (maybe with this solution
 		is easier to reactivate them?)
-- [ ] PERFORMANCES - Big stutter on first load of each particle, it happens onli on
-		compatibility which is required for web build
+- [x] PERFORMANCES - Big stutter on first load of each particle, it happens onli on
+		compatibility which is required for web build => Change all particles from GPU
+		to CPU and apparently it works
+- [ ] PERFORMANCES - Change Black Hole particle system from GPU to CPU
 
 GAMEPLAY
 

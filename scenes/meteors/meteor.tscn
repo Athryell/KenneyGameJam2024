@@ -1,38 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://ci6ijpc8q2nll"]
+[gd_scene load_steps=6 format=3 uid="uid://ci6ijpc8q2nll"]
 
 [ext_resource type="Script" path="res://scenes/meteors/meteor.gd" id="1_4sm23"]
 [ext_resource type="Texture2D" uid="uid://yiw7ctaom0l" path="res://assets/kenney_simple-space/PNG/Default/meteor_squareDetailedLarge.png" id="2_d1vea"]
 [ext_resource type="Script" path="res://scenes/meteors/meteor_sprite.gd" id="4_gi5dd"]
 [ext_resource type="Texture2D" uid="uid://bnh4uyxccmmls" path="res://assets/kenney_simple-space/PNG/Default/meteor_small.png" id="5_3sswt"]
 
-[sub_resource type="Curve" id="Curve_f0wgo"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_irttf"]
-curve_x = SubResource("Curve_f0wgo")
-
 [sub_resource type="Curve" id="Curve_rtkui"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_e8u43"]
-curve = SubResource("Curve_rtkui")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b62hg"]
-particle_flag_disable_z = true
-angular_velocity_min = 50.0
-angular_velocity_max = 100.0
-directional_velocity_min = 1.0
-directional_velocity_max = 1.0
-directional_velocity_curve = SubResource("CurveXYZTexture_irttf")
-orbit_velocity_max = 0.601
-radial_velocity_min = 31.45
-radial_velocity_max = 74.93
-gravity = Vector3(0, 0, 0)
-scale_min = 0.2
-scale_max = 0.2
-scale_curve = SubResource("CurveTexture_e8u43")
 
 [node name="Meteor" type="Area2D"]
 script = ExtResource("1_4sm23")
@@ -43,14 +18,21 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_d1vea")
 script = ExtResource("4_gi5dd")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
 show_behind_parent = true
 emitting = false
 amount = 200
-process_material = SubResource("ParticleProcessMaterial_b62hg")
-texture = ExtResource("5_3sswt")
 lifetime = 0.8
 one_shot = true
-trail_lifetime = 1.0
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("5_3sswt")
+gravity = Vector2(0, 0)
+angular_velocity_min = 50.0
+angular_velocity_max = 100.0
+orbit_velocity_max = 0.601
+scale_amount_min = 0.2
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_rtkui")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

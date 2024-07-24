@@ -8,13 +8,13 @@ var thrust = Vector2()
 var rotation_dir = 0
 var screensize
 
-@onready var part_thrust = $VFX/GPUParticles_Thrust as GPUParticles2D
-@onready var part_break_left = $VFX/GPUParticles_Break_Left as GPUParticles2D
-@onready var part_break_right = $VFX/GPUParticles_Break_Right as GPUParticles2D
-@onready var part_spin_left_top = $VFX/GPUParticles_SpinLeft_Top as GPUParticles2D
-@onready var part_spin_left_bottom = $VFX/GPUParticles_SpinLeft_Bottom as GPUParticles2D
-@onready var part_spin_right_top = $VFX/GPUParticles_SpinRight_Top as GPUParticles2D
-@onready var part_spin_right_bottom = $VFX/GPUParticles_SpinRight_Bottom as GPUParticles2D
+@onready var part_thrust = $VFX/GPUParticles_Thrust as CPUParticles2D
+@onready var part_break_left = $VFX/GPUParticles_Break_Left as CPUParticles2D
+@onready var part_break_right = $VFX/GPUParticles_Break_Right as CPUParticles2D
+@onready var part_spin_left_top = $VFX/GPUParticles_SpinLeft_Top as CPUParticles2D
+@onready var part_spin_left_bottom = $VFX/GPUParticles_SpinLeft_Bottom as CPUParticles2D
+@onready var part_spin_right_top = $VFX/GPUParticles_SpinRight_Top as CPUParticles2D
+@onready var part_spin_right_bottom = $VFX/GPUParticles_SpinRight_Bottom as CPUParticles2D
 
 @onready var animated_sprite_2d = $VFX/GPUParticles_Thrust/Sprite_Thrust
 @onready var sprite_break_left = $VFX/GPUParticles_Break_Left/Sprite_BreakLeft
@@ -24,8 +24,11 @@ var screensize
 @onready var sprite_spin_right_top = $VFX/GPUParticles_SpinRight_Top/Sprite_SpinRight_Top
 @onready var sprite_spin_right_bottom = $VFX/GPUParticles_SpinRight_Bottom/Sprite_SpinRight_Bottom
 
-
+@onready var camera = $"../Camera"
+var _starting_pos: Vector2
 func _ready():
+	_starting_pos = position
+	camera.outro_camera_finished.connect(_on_level_cleared)
 	screensize = get_viewport().get_visible_rect().size
 
 func get_input():
@@ -94,5 +97,9 @@ func _integrate_forces(state):
 		state.transform.origin.y = screensize.y
 		GameManager.stop_drawing()
 
-func _draw():
-	pass
+
+func _on_level_cleared():
+	position = _starting_pos
+	#TODO FIX camera.position = position
+	LevelManager.go_to_next_level
+	

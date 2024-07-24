@@ -1,3 +1,64 @@
-[gd_scene format=3 uid="uid://btm0dkbsc1d0h"]
+[gd_scene load_steps=14 format=3 uid="uid://btm0dkbsc1d0h"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_oqbxh"]
+[ext_resource type="Script" path="res://scenes/camera.gd" id="2_73voh"]
+[ext_resource type="PackedScene" uid="uid://bqkfwbqyhhejx" path="res://scenes/player/player.tscn" id="3_uu7xk"]
+[ext_resource type="Script" path="res://scenes/level_composer.gd" id="4_gtt11"]
+[ext_resource type="Texture2D" uid="uid://burb32u5wvxbe" path="res://assets/kenney_simple-space/PNG/Retina/meteor_detailedLarge.png" id="5_tew0v"]
+[ext_resource type="Texture2D" uid="uid://bvqbfdsd80iqa" path="res://assets/kenney_simple-space/PNG/Retina/meteor_detailedSmall.png" id="6_orj31"]
+[ext_resource type="Texture2D" uid="uid://ba3fq3jpuy8m0" path="res://assets/kenney_simple-space/PNG/Retina/meteor_large.png" id="7_r6stj"]
+[ext_resource type="Texture2D" uid="uid://gbv55kh7yduj" path="res://assets/kenney_simple-space/PNG/Retina/meteor_small.png" id="8_w1hkj"]
+[ext_resource type="Texture2D" uid="uid://bcorqfmk0lnuy" path="res://assets/kenney_simple-space/PNG/Retina/meteor_squareDetailedLarge.png" id="9_oykhe"]
+[ext_resource type="Texture2D" uid="uid://doeqnxb8e8mx3" path="res://assets/kenney_simple-space/PNG/Retina/meteor_squareDetailedSmall.png" id="10_8k0k3"]
+[ext_resource type="Texture2D" uid="uid://bkghvh0xx5woy" path="res://assets/kenney_simple-space/PNG/Retina/meteor_squareLarge.png" id="11_624iu"]
+[ext_resource type="Texture2D" uid="uid://cwy4morojlfwj" path="res://assets/kenney_simple-space/PNG/Retina/meteor_squareSmall.png" id="12_u4igt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwht5"]
+size = Vector2(1167, 615)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_oqbxh")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="World"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -351.0
+offset_right = 1920.0
+offset_bottom = 1089.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+color = Color(0.12549, 0.129412, 0.145098, 1)
+metadata/_edit_lock_ = true
+
+[node name="Camera" type="Camera2D" parent="World"]
+position = Vector2(640, 360)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+script = ExtResource("2_73voh")
+
+[node name="LevelComposer" type="Node2D" parent="World"]
+script = ExtResource("4_gtt11")
+meteor_sprites = Array[Texture2D]([ExtResource("5_tew0v"), ExtResource("6_orj31"), ExtResource("7_r6stj"), ExtResource("8_w1hkj"), ExtResource("9_oykhe"), ExtResource("10_8k0k3"), ExtResource("11_624iu"), ExtResource("12_u4igt")])
+meteor_colors = Array[Color]([Color(0.886639, 4.54836e-06, 9.62615e-07, 1), Color(0.0157078, 0.248415, 1, 1), Color(9.8668e-07, 0.593386, 1.92523e-07, 1), Color(0.498128, 0.249527, 0.687726, 1), Color(0.236502, 0.574281, 0.572349, 1)])
+metadata/_edit_lock_ = true
+
+[node name="SpawnArea" type="Area2D" parent="World"]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/SpawnArea"]
+position = Vector2(634.5, 356.5)
+shape = SubResource("RectangleShape2D_bwht5")
+debug_color = Color(0.443137, 0.454902, 1, 0.0352941)
+
+[node name="Player" parent="World" instance=ExtResource("3_uu7xk")]
+unique_name_in_owner = true
+modulate = Color(0.9, 0.9, 0.9, 1)
+position = Vector2(640, 360)
+rotation = -1.5708
