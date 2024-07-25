@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqkfwbqyhhejx"]
+[gd_scene load_steps=13 format=3 uid="uid://bqkfwbqyhhejx"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_55jxp"]
 [ext_resource type="Texture2D" uid="uid://dmqviu8k5umr1" path="res://assets/kenney_simple-space/PNG/Retina/ship_H.png" id="2_2nwxi"]
 [ext_resource type="Texture2D" uid="uid://b70hoxvd18v81" path="res://assets/kenney_particle-pack/PNG (Transparent)/smoke_08.png" id="2_2tipb"]
+[ext_resource type="Script" path="res://scenes/player/player_vfx.gd" id="2_etdir"]
 [ext_resource type="Texture2D" uid="uid://ddetsjvik0nbj" path="res://assets/kenney_particle-pack/PNG (Transparent)/muzzle_04.png" id="3_52eii"]
 [ext_resource type="Script" path="res://scenes/player/player_trail.gd" id="3_jdr2f"]
 [ext_resource type="Texture2D" uid="uid://bygbfwy5io8e1" path="res://assets/kenney_particle-pack/PNG (Transparent)/muzzle_02.png" id="3_jwgdo"]
@@ -25,12 +26,15 @@ animations = [{
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.592453), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2mahg"]
-height = 38.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ksqr8"]
+height = 37.28
 
 [sub_resource type="Curve" id="Curve_teldy"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_emag7"]
+radius = 8.0
 
 [node name="Player" type="RigidBody2D"]
 linear_damp = 0.5
@@ -38,6 +42,7 @@ angular_damp = 1.0
 script = ExtResource("1_55jxp")
 
 [node name="VFX" type="Node2D" parent="."]
+script = ExtResource("2_etdir")
 
 [node name="GPUParticles_Thrust" type="CPUParticles2D" parent="VFX"]
 self_modulate = Color(0.866179, 0.383594, 0.425694, 1)
@@ -239,10 +244,9 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_2mahg")
-metadata/_edit_lock_ = true
+shape = SubResource("CapsuleShape2D_ksqr8")
 
-[node name="PlayerTrailLeft" type="Line2D" parent="."]
+[node name="PlayerTrailLeftWing" type="Line2D" parent="."]
 show_behind_parent = true
 width = 3.0
 width_curve = SubResource("Curve_teldy")
@@ -252,7 +256,7 @@ script = ExtResource("3_jdr2f")
 length = 30
 is_left_trail = true
 
-[node name="PlayerTrailRight" type="Line2D" parent="."]
+[node name="PlayerTrailRightWing" type="Line2D" parent="."]
 show_behind_parent = true
 width = 3.0
 width_curve = SubResource("Curve_teldy")
@@ -270,3 +274,15 @@ position = Vector2(-12, -23)
 
 [node name="PlayerTrailStartingPointRight" type="Marker2D" parent="."]
 position = Vector2(-12, 23)
+
+[node name="ConnectionTrailAreaDetection" type="Area2D" parent="."]
+position = Vector2(-10, 0)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionTrailAreaDetection"]
+shape = SubResource("CircleShape2D_emag7")
+debug_color = Color(0.652174, 0.518745, 3.85046e-07, 0.42)
+
+[node name="CameraPlayer" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(5, 5)

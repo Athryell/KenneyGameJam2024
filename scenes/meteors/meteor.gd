@@ -1,24 +1,27 @@
 class_name Meteor
 extends Area2D
 
-#signal starting_connection(pos)
-
-var starting_col: Color
-@export var highlight_col: Color
+signal twin_found(obj: Meteor)
 
 const CONNECTION_TRAIL = preload("res://scenes/connection_trail/connection_trail.tscn")
 
-#var _info_dict: Dictionary
+@export var highlight_col: Color
+
 var type: int # This is to match the other twins to connect to
 var count: int # This is to check if the twin is not self
 var total_twins: int # This is to check if all the twins are connected
-#var color: Color # Maybe needed for some cool effect
+var starting_col: Color
 var player
 var trail
 var is_connection_completed
 
 @onready var sprite = $Sprite2D as Sprite2D
 @onready var particles = $GPUParticles2D
+
+
+func _ready():
+	self.twin_found.connect(GameManager._on_twin_found)
+
 
 func set_twin_info(meteor_type: int, meteor_count: int, twin_amount: int):
 	type = meteor_type
@@ -27,9 +30,8 @@ func set_twin_info(meteor_type: int, meteor_count: int, twin_amount: int):
 	starting_col = sprite.self_modulate
 	particles.self_modulate = starting_col
 
-
-func _on_body_entered(body):
-	if is_connection_completed:
+func _on_area_entered(area):
+	if not area.get_parent() is Player or is_connection_completed:
 		return
 	
 	particles.emitting = true
@@ -38,29 +40,21 @@ func _on_body_entered(body):
 	
 	if active_meteor and active_meteor.trail: # A trail is active
 		if active_meteor.type == type and active_meteor.count != count: # Is a twin meteor!
-			GameManager.connections_completed_in_family += 1
-			if GameManager.are_all_connections_completed():
-				GameManager.add_meteor_to_list(self)
-				GameManager.complete_connection(self)
-			else:
-				GameManager.add_meteor_to_list(self)
+			twin_found.emit(self)
 			return
 
 		GameManager.stop_drawing()
 
 	GameManager.set_meteor_info(self)
-	draw_connection()
+	_start_draw_new_connection()
 
 
-func draw_connection():	
+func _start_draw_new_connection():	
 	trail = CONNECTION_TRAIL.instantiate()
-	trail.draw_point = player.get_node("DrawStartingPoint")
+	trail.draw_point = player.get_node("ConnectionTrailAreaDetection")
 	trail.default_color = starting_col
 	trail.add_point(position - global_position)
 	add_child(trail)
 
-#
-#func flash_highlight():
-	#sprite.self_modulate = highlight_col
-	#get_tree().create_timer(1).timeout
-	#sprite.self_modulate = starting_col
+
+

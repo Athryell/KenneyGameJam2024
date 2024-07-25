@@ -3,10 +3,8 @@ extends Node
 signal level_data_loaded(game_elements: Dictionary)
 
 var _current_level: int = 0
-var _current_level_scene
 
 var _game_elements: Dictionary
-var _level_composer
 
 #func load_starting_level():
 	#current_level = 0
@@ -17,6 +15,7 @@ var _level_composer
 func go_to_next_level():
 	_current_level += 1
 	go_to_level(_current_level)
+
 
 func go_to_level(level):
 	_game_elements.clear()
@@ -45,10 +44,5 @@ func go_to_level(level):
 			#load_starting_level()
 			print("The Game is Over!")
 	
-	
-	#if not _level_composer:
-		#_level_composer = get_node("/root/Main/World/LevelComposer")
-	
-	#_level_composer.setup_level(_game_elements)
-	
 	level_data_loaded.emit(_game_elements)
+
