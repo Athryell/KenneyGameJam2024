@@ -23,7 +23,7 @@ func go_to_level(level):
 	match level:
 		0: 
 			_game_elements["families"] = 1
-			_game_elements["twins_amount"] = [2]
+			_game_elements["twins_amount"] = [3]
 			_game_elements["black_holes"] = 0
 			#_game_elements["families"] = 2
 			#_game_elements["twins_amount"] = [2]

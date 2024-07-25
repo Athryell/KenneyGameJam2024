@@ -1,4 +1,5 @@
 BUGS
+- [ ] GAMEPLAY - Meteor particles are super small after conversion to CPU
 - [ ] GAMEPLAY - When attracted by a Black Hole and teleport
 		to other side of the screen the gravity keeps pulling,
 		mybe need to reset in when teleported?

@@ -16,7 +16,7 @@ var trail
 var is_connection_completed
 
 @onready var sprite = $Sprite2D as Sprite2D
-@onready var particles = $GPUParticles2D
+@onready var particles = $ParticlesSmallExplosion
 
 
 func _ready():

@@ -13,26 +13,33 @@ point_count = 2
 script = ExtResource("1_4sm23")
 highlight_col = Color(22.142, 15.714, 17.857, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_d1vea")
-script = ExtResource("4_gi5dd")
-
-[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="ParticlesSmallExplosion" type="CPUParticles2D" parent="."]
 show_behind_parent = true
 emitting = false
 amount = 200
-lifetime = 0.8
 one_shot = true
+explosiveness = 0.3
 fixed_fps = 30
 draw_order = 1
 texture = ExtResource("5_3sswt")
 gravity = Vector2(0, 0)
-angular_velocity_min = 50.0
+angular_velocity_min = 100.0
 angular_velocity_max = 100.0
-orbit_velocity_max = 0.601
+orbit_velocity_min = 75.0
+orbit_velocity_max = 350.0
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
 scale_amount_min = 0.2
 scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_rtkui")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_d1vea")
+script = ExtResource("4_gi5dd")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

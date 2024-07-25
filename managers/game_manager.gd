@@ -26,6 +26,8 @@ func stop_drawing():
 	if _active_meteor and _active_meteor.trail:
 		_active_meteor.trail.queue_free()
 		_active_meteor = null
+	for m in _meteor_list:
+		m.is_connection_completed = false
 	_reset_data()
 
 
@@ -51,6 +53,7 @@ func _complete_connection(last_meteor):
 func _on_twin_found(obj: Meteor):
 	connections_completed_in_family += 1
 	_add_meteor_to_list(obj)
+	obj.is_connection_completed = true
 	if connections_completed_in_family == _active_meteor.total_twins - 1:
 		_complete_connection(obj)
 
