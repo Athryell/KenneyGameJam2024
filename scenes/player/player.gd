@@ -16,9 +16,12 @@ var screensize
 
 var _starting_pos: Vector2
 var _starting_damp: float 
-var _end_level_damp: float = 1.5
+var _end_level_damp: float = 3
 
+var target_rotation = -90
+var rotation_tolerance = 4
 var _is_dumping := false
+var timer_reset_rot
 
 func _ready():
 	GameManager.level_cleared.connect(_on_level_cleared)
@@ -29,15 +32,15 @@ func _ready():
 
 func _process(delta):
 	_get_input()
-	
-	if _is_dumping and abs(linear_velocity) < Vector2.ONE:
-		is_stopped.emit()
 
 
 func _get_input():
-	if Input.is_action_pressed("thrust") and not _is_dumping:
+	if _is_dumping:
+		return
+		
+	if Input.is_action_pressed("thrust"):
 		thrust = transform.x * engine_thrust
-	elif Input.is_action_pressed("break") and not _is_dumping:
+	elif Input.is_action_pressed("break"):
 		thrust = transform.x * -engine_brake
 	else:
 		thrust = Vector2()
@@ -77,9 +80,42 @@ func _jump_position():
 func _on_level_composed():
 	_is_dumping = false
 	linear_damp = _starting_damp
+	_jump_position()
 
 
 func _on_level_cleared():
 	_is_dumping = true
 	linear_damp = _end_level_damp
 
+	timer_reset_rot = Timer.new()
+	timer_reset_rot.wait_time = 0.1
+	timer_reset_rot.timeout.connect(_check_rotation)
+	add_child(timer_reset_rot)
+	timer_reset_rot.start()
+
+#region Logic to handle rotation reset after completing level
+func _check_rotation():
+	if _is_near_target_angles(int(rotation_degrees), rotation_tolerance):
+		set_angular_velocity(0)
+		#rotation_degrees = target_rotation
+		is_stopped.emit()
+		timer_reset_rot.queue_free()
+	else:
+		if _is_facing_right():
+			set_angular_velocity(-3)
+		else:
+			set_angular_velocity(3)
+
+
+func _is_near_target_angles(value, tolerance):
+	return _is_near_angle(value, -90, tolerance) or _is_near_angle(value, 270, tolerance)
+
+
+func _is_near_angle(value, target, tolerance):
+	var diff = abs((value - target + 180) % 360 - 180)
+	return diff <= tolerance
+
+
+func _is_facing_right():
+	return rotation_degrees >= -90 and rotation_degrees <= 90
+#endregion

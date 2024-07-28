@@ -17,9 +17,9 @@ func _ready():
 	level_composer.level_composed.connect(_level_intro)
 	player.is_stopped.connect(_level_outro)
 	
-	_player_cam = player.get_node("CameraPlayer")
+	_player_cam = player.get_node("CameraPlayer") as Camera2D
 	
-	#_starting_zoom = zoom
+	_starting_zoom = zoom
 	_startin_pos = position
 
 
@@ -41,15 +41,15 @@ func _level_outro():
 			.from(_starting_zoom) \
 			.set_ease(Tween.EASE_IN_OUT) \
 			.set_trans(Tween.TRANS_SINE)
-	#tween.tween_property(self, "position", _player_cam.global_position, _animation_duration) \
-			#.from(_startin_pos) \
-			#.set_ease(Tween.EASE_IN_OUT) \
-			#.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "position", _player_cam.global_position, _animation_duration) \
+			.from(_startin_pos) \
+			.set_ease(Tween.EASE_IN_OUT) \
+			.set_trans(Tween.TRANS_SINE)
+	tween.chain().tween_callback(LevelManager.go_to_next_level)
 			
-	#set_process(true)
+
 	#var tween = get_tree().create_tween()
 	#tween.tween_property(self, "zoom", Vector2.ONE * _close_up_zoom, _animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-	#tween.tween_callback(func(): set_process(false))
 	#tween.tween_callback(func(): self.position_smoothing_enabled = false)
 	#tween.parallel().tween_callback(func(): outro_camera_finished.emit())
 	#tween.tween_callback(func(): self.position = _startin_pos)

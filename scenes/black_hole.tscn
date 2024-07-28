@@ -51,6 +51,7 @@ amount = 200
 process_material = SubResource("ParticleProcessMaterial_yw7mj")
 texture = ExtResource("2_87eml")
 lifetime = 10.0
+trail_enabled = true
 trail_lifetime = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

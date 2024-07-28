@@ -13,22 +13,21 @@ const BLACK_HOLE = preload("res://scenes/black_hole.tscn")
 @export var meteor_sprites: Array[Texture2D]
 @export var meteor_colors: Array[Color]
 
-var _spawn_area_size
 var _rand_positions: Array[Vector2] = [Vector2(640, 360)] # Center of the screen is for player
 var _sprites_array
 var _colors_array
-var _min_distance
-var _player_startin_pos
 
-@onready var player = %Player
-@onready var shape_area = $"../SpawnArea/CollisionShape2D"
+
+@onready var _player = %Player
+@onready var _player_startin_pos = _player.position
+@onready var _shape_area = $"../SpawnArea/CollisionShape2D"
+@onready var _spawn_area_size = _shape_area.shape.size
+@onready var _min_distance = COL_SIZE_LARGE * 2 + _distance_between_meteors 
+
 
 func _ready():
-	_player_startin_pos = player.position
-	_spawn_area_size = shape_area.shape.size
-	_min_distance = COL_SIZE_LARGE * 2 + _distance_between_meteors 
 	LevelManager.level_data_loaded.connect(_compose_level)
-	level_composed.connect(player._on_level_composed)
+	level_composed.connect(_player._on_level_composed)
 
 func _compose_level(elements: Dictionary):
 	for c in get_children():
@@ -36,11 +35,11 @@ func _compose_level(elements: Dictionary):
 	_sprites_array = meteor_sprites.duplicate()
 	_colors_array = meteor_colors.duplicate()
 	_rand_positions.clear()
-	_rand_positions.append(player.global_position)
+	_rand_positions.append(_player.global_position)
 	
 	_setup_meteors_families(elements["families"], elements["twins_amount"])
 	_setup_black_holes(elements["black_holes"])
-	player.position = _player_startin_pos
+	_player.position = _player_startin_pos
 	level_composed.emit()
 
 
@@ -81,7 +80,7 @@ func _create_meteor(type: int, twin: int, twin_amount: int, txtr: Texture2D, col
 		new_col.shape.set_radius(COL_SIZE_LARGE)
 	
 	new_meteor.set_twin_info(type, twin, twin_amount)
-	new_meteor.player = player
+	new_meteor.player = _player
 
 
 func _setup_black_holes(amount):
