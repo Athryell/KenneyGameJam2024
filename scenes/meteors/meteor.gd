@@ -55,6 +55,3 @@ func _start_draw_new_connection():
 	trail.default_color = starting_col
 	trail.add_point(position - global_position)
 	add_child(trail)
-
-
-

@@ -1,11 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfqbtyv5vymd2"]
 
-[ext_resource type="Script" path="res://scenes/connection_trail/connection_trail.gd" id="1_auj64"]
+[ext_resource type="Script" uid="uid://cwm6cgp2ctxqu" path="res://scenes/connection_trail/connection_trail.gd" id="1_auj64"]
 [ext_resource type="PackedScene" uid="uid://88ehfikr7er" path="res://scenes/connection_trail/completed_trail_particles.tscn" id="2_r2o43"]
 
 [sub_resource type="Curve" id="Curve_1whk4"]
-min_value = 0.25
-max_value = 0.75
+_limits = [0.25, 0.75, 0.0, 1.0]
 _data = [Vector2(0, 0.25), 0.0, 0.0, 0, 0, Vector2(0.14, 0.75), 0.0, 0.0, 0, 0, Vector2(0.26, 0.25), 0.0, 0.0, 0, 0, Vector2(0.38, 0.75), 0.0, 0.0, 0, 0, Vector2(0.52, 0.25), 0.0, 0.0, 0, 0, Vector2(0.64, 0.75), 0.0, 0.0, 0, 0, Vector2(0.76, 0.25), 0.0, 0.0, 0, 0, Vector2(0.88, 0.75), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
 point_count = 9
 metadata/_snap_enabled = true

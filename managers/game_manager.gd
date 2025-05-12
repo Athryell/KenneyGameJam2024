@@ -68,4 +68,3 @@ func _reset_data():
 	_active_meteor = null
 	_meteor_list.clear()
 	connections_completed_in_family = 0
-

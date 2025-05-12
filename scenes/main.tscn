@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3 uid="uid://btm0dkbsc1d0h"]
 
-[ext_resource type="Script" path="res://scenes/main.gd" id="1_oqbxh"]
-[ext_resource type="Script" path="res://scenes/camera.gd" id="2_73voh"]
+[ext_resource type="Script" uid="uid://cn7x46t0bhiyf" path="res://scenes/main.gd" id="1_oqbxh"]
+[ext_resource type="Script" uid="uid://dm6eghyf6k7uu" path="res://scenes/camera.gd" id="2_73voh"]
 [ext_resource type="PackedScene" uid="uid://bqkfwbqyhhejx" path="res://scenes/player/player.tscn" id="3_uu7xk"]
-[ext_resource type="Script" path="res://scenes/level_composer.gd" id="4_gtt11"]
+[ext_resource type="Script" uid="uid://db2qa0fcwps7o" path="res://scenes/level_composer.gd" id="4_gtt11"]
 [ext_resource type="Texture2D" uid="uid://burb32u5wvxbe" path="res://assets/kenney_simple-space/PNG/Retina/meteor_detailedLarge.png" id="5_tew0v"]
 [ext_resource type="Texture2D" uid="uid://bvqbfdsd80iqa" path="res://assets/kenney_simple-space/PNG/Retina/meteor_detailedSmall.png" id="6_orj31"]
 [ext_resource type="Texture2D" uid="uid://ba3fq3jpuy8m0" path="res://assets/kenney_simple-space/PNG/Retina/meteor_large.png" id="7_r6stj"]

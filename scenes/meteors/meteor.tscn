@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://ci6ijpc8q2nll"]
 
-[ext_resource type="Script" path="res://scenes/meteors/meteor.gd" id="1_4sm23"]
+[ext_resource type="Script" uid="uid://dlmgii12g0nda" path="res://scenes/meteors/meteor.gd" id="1_4sm23"]
 [ext_resource type="Texture2D" uid="uid://yiw7ctaom0l" path="res://assets/kenney_simple-space/PNG/Default/meteor_squareDetailedLarge.png" id="2_d1vea"]
-[ext_resource type="Script" path="res://scenes/meteors/meteor_sprite.gd" id="4_gi5dd"]
+[ext_resource type="Script" uid="uid://dep23mjkf0c5j" path="res://scenes/meteors/meteor_sprite.gd" id="4_gi5dd"]
 [ext_resource type="Texture2D" uid="uid://bnh4uyxccmmls" path="res://assets/kenney_simple-space/PNG/Default/meteor_small.png" id="5_3sswt"]
 
 [sub_resource type="Curve" id="Curve_rtkui"]
@@ -17,11 +17,11 @@ highlight_col = Color(22.142, 15.714, 17.857, 1)
 show_behind_parent = true
 emitting = false
 amount = 200
+texture = ExtResource("5_3sswt")
 one_shot = true
 explosiveness = 0.3
 fixed_fps = 30
 draw_order = 1
-texture = ExtResource("5_3sswt")
 gravity = Vector2(0, 0)
 angular_velocity_min = 100.0
 angular_velocity_max = 100.0

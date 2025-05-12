@@ -41,4 +41,3 @@ func highlight_completed_trail():
 func _on_add_point_timer_timeout():
 	var point = draw_point.global_position - global_position
 	add_point(point)
-

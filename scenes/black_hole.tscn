@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://crt4gab6kynwi"]
 
 [ext_resource type="Texture2D" uid="uid://ba3fq3jpuy8m0" path="res://assets/kenney_simple-space/PNG/Retina/meteor_large.png" id="1_ncd3d"]
-[ext_resource type="Script" path="res://scenes/black_hole.gd" id="1_wsly6"]
+[ext_resource type="Script" uid="uid://hx4sii7rknlh" path="res://scenes/black_hole.gd" id="1_wsly6"]
 [ext_resource type="Texture2D" uid="uid://dh21erlbuv64c" path="res://assets/kenney_simple-space/PNG/Default/star_small.png" id="2_87eml"]
 
 [sub_resource type="Curve" id="Curve_dky5y"]
@@ -25,6 +25,7 @@ emission_ring_axis = Vector3(1, 1, 1)
 emission_ring_height = 300.0
 emission_ring_radius = 300.0
 emission_ring_inner_radius = 1.0
+emission_ring_cone_angle = 90.0
 angular_velocity_min = 50.0
 angular_velocity_max = 100.0
 directional_velocity_min = 1.0
@@ -48,11 +49,11 @@ radius = 250.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 amount = 200
-process_material = SubResource("ParticleProcessMaterial_yw7mj")
 texture = ExtResource("2_87eml")
 lifetime = 10.0
 trail_enabled = true
 trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_yw7mj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 1)

@@ -42,4 +42,3 @@ func go_to_level(level):
 			go_to_level(_current_level)
 	
 	level_data_loaded.emit(_game_elements)
-
